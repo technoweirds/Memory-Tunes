@@ -1,0 +1,210 @@
+@import url('https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900')
+
+$red: #FF5353
+$yellow: #FFC429
+$blue: #5980C1
+$beige: #FBE9B7
+$black: #1D1E22
+
+@mixin size ($w, $h:$w)
+  width: $w
+  height: $h
+  
+@mixin flexCenter
+  display: flex
+  justify-content: center
+  align-items: center
+
+@mixin blockLight($color)
+  box-shadow: inset 0 0 35px rgba($color, 0.2), 0px 0px 30px rgba($color, 0.2)
+  border: 1px solid lighten($color, 5)
+  // &:hover
+  //   background-color: rgba($color, 0.3)
+  //   box-shadow: inset 0 0 35px rgba($color, 0.3), 0px 0px 30px rgba($color, 0.3)
+  &:active, &.light
+    background-color: $color
+    box-shadow: 0 0 35px $color
+
+// For mobile phone
+*
+  font-family: 'roboto', sans-serif
+  user-select: none
+  cursor: default
+  box-sizing: border-box
+
+html, body
+  margin: 0
+  position: relative
+  +size(100%)
+
+body
+  background-color: $black
+  color: white
+  
+.wrap
+  +size(100%)
+  +flexCenter
+  border: 15px solid rgba(white, 0.05)
+  transition: 0.5s
+  filter: blur(0)
+  &:active
+    border: 15px solid rgba(white, 0.2)
+    transition: 0
+  &.blur
+    filter: blur(20px)
+
+.infos
+  position: absolute
+  top: 30px
+  transform: scale(0.8)
+  pointer-events: none
+  -webkit-pointer-events: none
+
+.title
+  margin: 0
+  font-size: 40px
+  letter-spacing: 1px
+  
+.status
+  margin: 0
+  margin-top: 10px
+  letter-spacing: 0.5px
+  color: $red
+  
+.columns
+  margin-top: 130px
+  +flexCenter
+  flex-direction: column
+  transform: scale(0.6)
+  
+.row
+  +flexCenter
+    
+.block
+  border: 1px solid white
+  margin: 15px
+  +size(180px)
+  cursor: pointer
+  transition: 0.5s
+  &:active, &.light
+    background-color: white
+    transition: 0s // 按下瞬間亮起
+  &.block1
+    +blockLight($red)
+  &.block2
+    +blockLight($yellow)
+  &.block3
+    +blockLight($blue)
+  &.block4
+    +blockLight($beige)
+  &.stopInputting:active
+    background-color: transparent
+    box-shadow: 0 0 35px transparent
+    
+.inputProgress
+  padding: 15px 0
+  +flexCenter
+  flex-wrap: wrap
+  width: 420px
+  &.correct .circle
+    background-color: $blue
+  &.wrong .circle
+    background-color: $red
+
+.circle
+  +size(8px)
+  border-radius: 50%
+  background-color: white
+  opacity: 0.3
+  margin: 5px
+  &.correct
+    opacity: 1
+
+.endWindow
+  +size(100%)
+  position: absolute
+  left: 0
+  top: 0
+  padding: 2%
+  +flexCenter
+  flex-direction: column
+  &.hide
+    display: none
+
+.memoryLevel
+  color: white
+  font-size: 32px
+  font-weight: 700
+  letter-spacing: 1px
+  text-align: center
+  margin-bottom: 5px
+  transform: scale(0.7)
+
+.restart
+  +flexCenter
+  +size(180px, 65px)
+  font-size: 20px
+  font-weight: 700
+  letter-spacing: 0.5px
+  border: 2px solid white
+  cursor: pointer
+  transition: 0.2s
+  transform: scale(0.7)
+  &:hover
+    color: $black
+    background-color: white
+
+// For size > 480px
+@media screen and (min-width: 480px)
+  .infos
+    transform: scale(1)
+
+  .columns
+    transform: scale(1)
+
+  .memoryLevel
+    margin-bottom: 40px
+    transform: scale(1)
+
+  .restart
+    transform: scale(1)
+
+// For size > 607px
+@media screen and (min-width: 607px)
+  .infos
+    left: 80px
+
+// For iPad Pro
+@media screen and (min-width: 1024px)
+  .infos
+    transform: scale(1.2)
+    left: 200px
+    top: 200px
+
+  .columns
+    transform: scale(1.2)
+
+// For Desktop
+@media screen and (min-width: 1025px)
+  .infos
+    transform: scale(1)
+    left: 80px
+    top: 70px
+
+  .columns
+    margin-top: 150px
+    transform: scale(1)
+
+  // Mobile devices's hover effects remain after touching. Therefore only in this size(bigger 1px than iPad Pro's screen size), blocks have hover effect
+  .block1:hover
+    background-color: rgba($red, 0.3)
+    box-shadow: inset 0 0 35px rgba($red, 0.3), 0px 0px 30px rgba($red, 0.3)
+  .block2:hover
+    background-color: rgba($yellow, 0.3)
+    box-shadow: inset 0 0 35px rgba($yellow, 0.3), 0px 0px 30px rgba($yellow, 0.3)
+  .block3:hover
+    background-color: rgba($blue, 0.3)
+    box-shadow: inset 0 0 35px rgba($blue, 0.3), 0px 0px 30px rgba($blue, 0.3)
+  .block4:hover
+    background-color: rgba($beige, 0.3)
+    box-shadow: inset 0 0 35px rgba($beige, 0.3), 0px 0px 30px rgba($beige, 0.3)
